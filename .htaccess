@@ -1,0 +1,12 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?:config|core|models|services|helpers|components|database|\.git|\.agents|\.aws|\.codex)(?:/|$) - [F,L,NC]
+</IfModule>
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "^(?:\.env|\.gitignore|composer\.(?:json|lock))$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
