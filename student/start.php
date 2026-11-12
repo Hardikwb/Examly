@@ -1,0 +1,2 @@
+<?php
+require dirname(__DIR__).'/bootstrap.php';requireRole('student');postOnly();$examId=(int)($_POST['exam_id']??0);try{$attemptId=ExamService::start($examId,(int)AuthService::user()['id']);$attempt=(new Attempt())->findOwned($attemptId,(int)AuthService::user()['id']);if($attempt)(new Attempt())->initializeQuestionOrder($attempt);redirectTo('student/exam.php?attempt='.$attemptId);}catch(Throwable $e){Session::flash('error',$e instanceof RuntimeException?$e->getMessage():'Exam could not be started.');redirectTo('student/exams.php');}
